@@ -23,7 +23,9 @@ class SoundHandler:
         self.r = sr.Recognizer()
 
     def speak(self, tts_string):
-        print(tts_string)
+        W = '\033[0m'  # white (normal)
+        P = '\033[35m'  # purple
+        print(P + tts_string + W)
         if self.voice == 0:
             tts = gTTS(text=tts_string, lang='de', )
             tts.save("speak.mp3")
@@ -47,23 +49,29 @@ class SoundHandler:
         understood = False
         while not understood:
             with sr.Microphone(device_index=8) as source:
-                print("Say something!")
+                W = '\033[0m'  # white (normal)
+                R = '\033[31m'  # red
+                G = '\033[32m'  # green
+                O = '\033[33m'  # orange
+                B = '\033[34m'  # blue
+                P = '\033[35m'  # purple
+                print(O + "Say something!" + W)
                 self.r.adjust_for_ambient_noise(source, duration=0.5)
-                audio = self.r.listen(source)
+                audio = self.r.listen(source, timeout=15, phrase_time_limit=10)
 
             try:
                 data_raw = self.r.recognize_google(audio, language="de")
                 data_lower = data_raw.lower()
-                print("You said: " + data_raw)
+                print(O + "You said: " + B + data_raw + W)
                 understood = True
                 return data_lower.replace(" eins ", " 1 ").replace(" zwei ", " 2 ").replace(" drei ", " 3 ")\
                     .replace("vier ", " 4 ").replace(" fünf ", " 5 ").replace(" sechs ", " 6 ")\
                     .replace(" sieben ", " 7 ").replace(" acht ", " 8 ").replace(" neun ", " 9 ")\
                     .replace(" zehn ", " 10 ")
             except sr.UnknownValueError:
-                print("Google Speech Recognition could not understand audio")
+                print(R + "Google Speech Recognition could not understand audio" + W)
             except sr.RequestError as e:
-                print(f"Could not request results from Google Speech Recognition service; {e}")
+                print(R + f"Could not request results from Google Speech Recognition service; {e}" + W)
 
     def change_voice(self):
         if self.voice == 0:
