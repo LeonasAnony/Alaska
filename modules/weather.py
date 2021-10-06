@@ -27,7 +27,7 @@ def direction(degree):
         return "Nordwest"
 
 
-class WeatherInfo:
+class Weather:
     def __init__(self, data):
         data_split = data.split(" ")
         if "in" in data:

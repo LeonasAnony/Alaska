@@ -5,7 +5,7 @@ lights = ["V4", "V13", "V14", "V15", "V16", "V17", "V18", "V19", "V21", "V22"]
 topic = cfg.mqtt_cfg["topic"]
 
 
-class AlaskaMQTT:
+class MQTT:
     def __init__(self):
         def on_connect(client, userdata, flags, rc):
             if rc == 0:
@@ -34,4 +34,11 @@ class AlaskaMQTT:
     def publish(self, topic=None, message=None, qos=0):
         self.client.publish(topic=topic, payload=message, qos=qos)
 
-    # def subscribe(self):
+    """
+    def subscribe(client: mqtt_client):
+        def on_message(client, userdata, msg):
+            print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+
+        client.subscribe(topic)
+        client.on_message = on_message
+    """

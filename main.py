@@ -1,50 +1,27 @@
-import time
 # import os
 # import random
 import threading
-from weather import WeatherInfo
-from sound import SoundHandler
-from mqtt import AlaskaMQTT
-import pytz
+import time
+
+import BlynkLib
 import pyjokes
+import pytz
 import wikipedia
 import wolframalpha
-import BlynkLib
+
 import config as cfg
-from spotify import SpotifyControl
+import modules
 
 blynk = BlynkLib.Blynk(cfg.blynk_cfg["auth"])
 
 said = 0
 voice = 0
-thread_num = 0
+# thread_num = 0
 
-sh = SoundHandler()
-mqtt = AlaskaMQTT()
+sh = modules.sound.Sound()
+mqtt = modules.mqtt.MQTT()
 wikipedia.set_lang("de")
-sp = SpotifyControl()
-zahlen = "null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf dreizehn vierzehn fünfzehn sechzehn " \
-         "siebzehn achtzehn neunzehn zwanzig einundzwanzig zweiundzwanzig dreiundzwanzig vierundzwanzig " \
-         "fünfundzwanzig sechsundzwanzig siebenundzwanzig achtundzwanzig neunundzwanzig dreißig einunddreißig " \
-         "zweiunddreißig dreiunddreißig vierunddreißig fünfunddreißig sechsunddreißig siebenunddreißig achtunddreißig " \
-         "neununddreißig vierzig einundvierzig zweiundvierzig dreiundvierzig vierundvierzig fünfundvierzig " \
-         "sechsundvierzig siebenundvierzig achtundvierzig neunundvierzig fünfzig einundfünfzig zweiundfünfzig " \
-         "dreiundfünfzig vierundfünfzig fünfundfünfzig sechsundfünfzig siebenundfünfzig achtundfünfzig neunundfünfzig " \
-         "sechzig einundsechzig zweiundsechzig dreiundsechzig vierundsechzig fünfundsechzig sechsundsechzig " \
-         "siebenundsechzig achtundsechzig neunundsechzig siebzig einundsiebzig zweiundsiebzig dreiundsiebzig " \
-         "vierundsiebzig fünfundsiebzig sechsundsiebzig siebenundsiebzig achtundsiebzig neunundsiebzig achtzig " \
-         "einundachtzig zweiundachtzig dreiundachtzig vierundachtzig fünfundachtzig sechsundachtzig siebenundachtzig " \
-         "achtundachtzig neunundachtzig neunzig einundneunzig zweiundneunzig dreiundneunzig vierundneunzig " \
-         "fünfundneunzig sechsundneunzig siebenundneunzig achtundneunzig neunundneunzig einhundert".split()
-
-"""
-def subscribe(client: mqtt_client):
-    def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-
-    client.subscribe(topic)
-    client.on_message = on_message
-"""
+sp = modules.spotify.Spotify()
 
 
 def alaska(audio):
@@ -63,24 +40,24 @@ def alaska(audio):
         sh.speak("Es ist " + hour + " Uhr " + minute)
 
     if "wetter in" in audio or "wetter für" in audio:
-        info = WeatherInfo(audio)
+        info = modules.weather.Weather(audio)
         location, status = info.status()
         sh.speak("Aktuell in " + str(location) + ": " + str(status) + ".")
 
     if "wind in" in audio or "wie windig in" in audio:
-        wind = WeatherInfo(audio)
+        wind = modules.weather.Weather(audio)
         location, speed, deg, direc = wind.wind()
         sh.speak("Aktuell in " + str(location) + ": " + str(speed) + " Meter die Sekunde, aus " + str(deg) + " " +
                  str(direc))
 
     if "wann geht die sonne auf" in audio or "wann geht in" and "die sonne auf" in audio:
-        sunrise = WeatherInfo(audio)
+        sunrise = modules.weather.Weather(audio)
         location, sunrise_datetime = sunrise.sunrise()
         sunrise_datetime = sunrise_datetime.astimezone(pytz.timezone("Europe/Berlin"))
         sh.speak("In " + str(location) + " geht die Sonne um " + str(sunrise_datetime.strftime("%H:%M")) + " auf.")
 
     if "wann geht die sonne unter" in audio or "wann geht in" and "die sonne unter" in audio:
-        sunset = WeatherInfo(audio)
+        sunset = modules.weather.Weather(audio)
         location, sunset_datetime = sunset.sunset()
         sunset_datetime = sunset_datetime.astimezone(pytz.timezone("Europe/Berlin"))
         sh.speak("In " + str(location) + " geht die Sonne um " + str(sunset_datetime.strftime("%H:%M")) + " unter.")
@@ -135,40 +112,28 @@ def alaska(audio):
                 undpos = [i for i, x in enumerate(audio_split) if x == "und"]
                 for pos in undpos:
                     light = audio_split[pos - 1]
-                    if light in zahlen:
-                        light = zahlen.index(light)
-                    mqtt.publish("light/n", 1, light)
+                    mqtt.light("light/n", 1, light)
                 anpos = audio_split.index("an")
                 light = audio_split[anpos - 1]
-                if light in zahlen:
-                    light = zahlen.index(light)
-                mqtt.publish("light/n", 1, light)
+                mqtt.light("light/n", 1, light)
             else:
                 anpos = audio_split.index("an")
                 light = audio_split[anpos - 1]
-                if light in zahlen:
-                    light = zahlen.index(light)
-                mqtt.publish("light/n", 1, light)
+                mqtt.light("light/n", 1, light)
 
         elif " aus" in audio:
             if " und " in audio:
                 undpos = audio_split.index("und")
                 for pos in undpos:
                     light = audio_split[pos - 1]
-                    if light in zahlen:
-                        light = zahlen.index(light)
-                    mqtt.publish("light/n", 0, light)
+                    mqtt.light("light/n", 0, light)
                 auspos = audio_split.index("aus")
                 light = audio_split[auspos - 1]
-                if light in zahlen:
-                    light = zahlen.index(light)
-                mqtt.publish("light/n", 0, light)
+                mqtt.light("light/n", 0, light)
             else:
                 auspos = audio_split.index("aus")
                 light = audio_split[auspos - 1]
-                if light in zahlen:
-                    light = zahlen.index(light)
-                mqtt.publish("light/n", 0, light)
+                mqtt.light("light/n", 0, light)
 
     if "spiele meine playlist" in audio or "spiele die playlist" in audio:
         data_split = audio.split(" ")
@@ -208,15 +173,11 @@ def alaska(audio):
     if "lautstärke auf" in audio:
         data_split = audio.split(" ")
         vol = data_split[2]
-        if vol in zahlen:
-            vol = zahlen.index(vol)
         sp.set_volume(vol)
 
     if "lauter" in audio:
         data_split = audio.split(" ")
         vol = data_split[0]
-        if vol in zahlen:
-            vol = zahlen.index(vol)
         if len(data_split) >= 2:
             sp.volume(vol)
         elif len(data_split) == 1:
@@ -225,8 +186,6 @@ def alaska(audio):
     if "leiser" in audio:
         data_split = audio.split(" ")
         vol = data_split[0]
-        if vol in zahlen:
-            vol = zahlen.index(vol)
         if len(data_split) >= 2:
             sp.volume("-" + vol)
         elif len(data_split) == 1:
@@ -258,7 +217,7 @@ def wake_word(record):
     global said
     if said == 0:
         if "alaska" in record:
-            sh.file_play("recognition.mp3")
+            sh.file_play("audio-files/recognition.mp3")
             time.sleep(0.2)
             said = 1
 
@@ -289,7 +248,7 @@ class MyFred(threading.Thread):
 
 
 time.sleep(2)
-sh.file_play("welcome.mp3")
+sh.file_play("audio-files/welcome.mp3")
 time.sleep(2)
 
 wl = threading.Thread(target=wakeword_loop())

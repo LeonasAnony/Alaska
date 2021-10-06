@@ -4,7 +4,7 @@ import config as cfg
 import jellyfish
 
 
-class SpotifyControl:
+class Spotify:
     def __init__(self):
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cfg.sp_cfg["client_id"],
                                                             client_secret=cfg.sp_cfg["client_secret"],
