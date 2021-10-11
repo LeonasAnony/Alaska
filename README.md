@@ -29,9 +29,12 @@ Coming soon...
 
 
 ## ToDos:
+- [ ] Rebuild Command detection (Jellyfish/ KI)
+- [ ] Splitting main.py into modules
+- [ ] Rebuild Wake word detection
+  - [ ] Multi-Threading (multiple short detection threads)
 - [ ] Error Handling
 - [ ] Englisch translation
-- [ ] Spliting main.py into modules
 - [ ] Rebuilding/ Optimizing modules
-- [ ] Rebuild Wakeword detection
-- [ ] Rebuild Command detection (Jellyfish/ KI)
+- [ ] Documenting the code
+- [ ] Optimizing performance

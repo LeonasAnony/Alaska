@@ -45,14 +45,14 @@ class Sound:
         print(P + tts_string + W)
         if self.voice == 0:
             tts = gTTS(text=tts_string, lang='de', )
-            tts.save("audio-files/speak.mp3")
+            tts.save("data/audio/speak.mp3")
 
         elif self.voice == 1:
-            with open('audio-files/speak.mp3', 'wb') as audio_file:
+            with open('data/audio/speak.mp3', 'wb') as audio_file:
                 audio_file.write(text_to_speech.synthesize(tts_string, voice='de-DE_DieterV3Voice', accept='audio/mp3')
                                  .get_result().content)
 
-        speak_file = vlc.Media("audio-files/speak.mp3")
+        speak_file = vlc.Media("data/audio/speak.mp3")
         self.vlc_speak.set_media(speak_file)
         self.vlc_speak.play()
 

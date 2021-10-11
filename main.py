@@ -1,5 +1,16 @@
-# import os
-# import random
+# Alaska - Voice Assistant
+
+# TODO:
+#   Rebuild Command detection (Jellyfish/ NeuralIntents)
+#   Splitting main.py into modules
+#   Rebuild Wake word detection
+#       Multi-Threading (multiple short detection threads)
+#   Error Handling
+#   Englisch translation
+#   Rebuilding/ Optimizing modules
+#   Documenting the code
+#   Optimizing performance
+
 import threading
 import time
 
@@ -8,6 +19,7 @@ import pyjokes
 import pytz
 import wikipedia
 import wolframalpha
+# from neuralintents import GenericAssistant
 
 import config as cfg
 import modules
@@ -213,11 +225,12 @@ def alaska(audio):
     if "letzter song" in audio or "letztes lied" in audio or "zurück" in audio:
         sp.back_track()
 
+
 def wake_word(record):
     global said
     if said == 0:
         if "alaska" in record:
-            sh.file_play("audio-files/recognition.mp3")
+            sh.file_play("data/audio/recognition.mp3")
             time.sleep(0.2)
             said = 1
 
@@ -248,7 +261,7 @@ class MyFred(threading.Thread):
 
 
 time.sleep(2)
-sh.file_play("audio-files/welcome.mp3")
+sh.file_play("data/audio/welcome.mp3")
 time.sleep(2)
 
 wl = threading.Thread(target=wakeword_loop())
