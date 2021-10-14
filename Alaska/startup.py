@@ -1,6 +1,8 @@
 import optparse
 import subprocess
 import sys
+import os
+import time
 
 try:
     from Alaska.lib.Neural.neuralintents import GenericAssistant
@@ -39,9 +41,12 @@ class StartUp():
                         pass
                     
         self.mapping = Mappings()
-    
-        if self.options.retrainmodel: # or not exists("Alaska/lib/Neural/"):
-            self.retrain_model()
+
+        if not os.path.exists("Alaska/lib/Neural/German-1.0.0"):
+            os.mkdirs("Alaska/lib/Neural/German-1.0.0")
+            self.retrainmodel()
+        elif self.options.retrainmodel:
+            self.retrainmodel()
             
         main.Alaska(self.mapping, self.options.terminalmode)
         
@@ -119,12 +124,15 @@ class StartUp():
         self.installed = True
         for i in self.missing_deps:
             ret = subprocess.call(f"pip3 install {i}")
+            time.sleep(5)
 
-            if ret != 0:
+            if ret == 0:
+                print(f"\033[32mInstallation for: {i} was successfull.\033[0m\n")
+            else:
                 print(f"\033[31mInstallation failed for: {i}\033[0m\n")
                 self.installed = False
                 
         if self.installed:
             print("\033[32mAll missing packages successfully installed.\033[0m\n")
         else:
-            print("\033[31mPACKAGE INSTALLATION FAILED\033[0m")
+            sys.exit("\033[31mPACKAGE INSTALLATION FAILED\033[0m")

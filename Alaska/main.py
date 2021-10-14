@@ -19,9 +19,6 @@ from Alaska.lib.Neural.neuralintents import GenericAssistant
 from Alaska.lib.modules.sound import Sound
 
 
-said = 0
-
-
 
 class AlaskaThreads(threading.Thread):
     def __init__(self, fredid, name):

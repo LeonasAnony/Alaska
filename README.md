@@ -24,13 +24,17 @@ Say "Alaska" and wait for the recognition sound:
 Coming soon...
 
 
+## Example config.py:
+Coming soon...
+
+
 ## Dependencies:
 Coming soon...
 
 
 ## ToDos:
-- [ ] Rebuild Command detection (Jellyfish/ KI)
-- [ ] Splitting main.py into modules
+- [ ] Rebuild Command detection (Jellyfish/ KI)     (branch:dev)
+- [ ] Splitting main.py into modules      (branch:dev)
 - [ ] Rebuild Wake word detection
   - [ ] Multi-Threading (multiple short detection threads)
 - [ ] Error Handling
