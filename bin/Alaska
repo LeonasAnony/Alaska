@@ -1,0 +1,4 @@
+#!/bin/bash
+
+BINPATH=`dirname $0`
+/home/leonas/Dokumente/Development/venv/bin/python3.9 "$BINPATH/../__init__.py" $@

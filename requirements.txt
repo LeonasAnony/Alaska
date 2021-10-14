@@ -1,6 +1,4 @@
-BlynkLib==0.2.6
 gtts==2.2.3
-ibm_cloud_sdk_core==3.11.3
 ibm_watson==5.3.0
 jellyfish==0.8.8
 paho_mqtt==1.5.1

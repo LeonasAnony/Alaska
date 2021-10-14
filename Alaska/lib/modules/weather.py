@@ -1,6 +1,7 @@
 from pyowm.owm import OWM
 from pyowm.utils.config import get_default_config
-import config as cfg
+from Alaska import config as cfg
+
 
 config_dict = get_default_config()
 config_dict['language'] = 'de'

@@ -1,7 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-import config as cfg
 import jellyfish
+from Alaska import config as cfg
 
 
 class Spotify:

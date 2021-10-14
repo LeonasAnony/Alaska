@@ -1,5 +1,5 @@
 from paho.mqtt import client as mqtt_client
-import config as cfg
+from Alaska import config as cfg
 
 lights = ["V4", "V13", "V14", "V15", "V16", "V17", "V18", "V19", "V21", "V22"]
 topic = cfg.mqtt_cfg["topic"]

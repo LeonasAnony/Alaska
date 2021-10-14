@@ -1,0 +1,368 @@
+{
+	"intents": [
+		{
+			"tag": "greeting",
+			"patterns": [
+				"Hi",
+				"Wie gehts dir?",
+				"Bist du an?",
+				"Hallo",
+				"Guten Tag/ Morgen",
+				"Hey"
+			],
+			"responses": [
+				"Hallo!",
+				"Schön dich zu hören!",
+				"Moin, wie kann ich helfen?"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "howlate",
+			"patterns": [
+				"wie spät",
+				"wie spät ist es",
+				"uhrzeit",
+				"wie viel uhr",
+				"wie viel uhr ist es"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "weather",
+			"patterns": [
+				"wetter in",
+				"wie ist das wetter in",
+				"wie ist das wetter"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "wind",
+			"patterns": [
+				"wind in",
+				"wie windig ist es in",
+				"wie windig ist es",
+				"ist es windig",
+				"wie windig in"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "sunrise",
+			"patterns": [
+				"wann geht die sonne auf",
+				"wann geht in die sonne auf",
+				"sonnenaufgang",
+				"sonnenaufgang für",
+				"sonnenaufgang in"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "sunset",
+			"patterns": [
+				"wann geht die sonne unter",
+				"wann geht in die sonne unter",
+				"sonnenuntergang",
+				"sonnenuntergang für",
+				"sonnenuntergang in"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "voicechange",
+			"patterns": [
+				"wechsel deine stimme",
+				"stimme wechseln"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "joke",
+			"patterns": [
+				"erzähl mir einen witz",
+				"witz",
+				"erzähle mir einen witz",
+				"einen witz"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "definition",
+			"patterns": [
+				"definiere",
+				"definition von",
+				"was ist die definition von"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "capital",
+			"patterns": [
+				"hautpstadt von",
+				"was ist die hauptstadt von"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "calc",
+			"patterns": [
+				"wie viel ist",
+				"rechne",
+				"was ergibt"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "lighton",
+			"patterns": [
+				"schalte das licht an",
+				"licht an",
+				"licht anschalten",
+				"alle lampen anschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "lightoff",
+			"patterns": [
+				"schalte das licht aus",
+				"licht aus",
+				"licht ausschalten",
+				"alle lampen ausschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "lampon",
+			"patterns": [
+				"schalte lampe 1 an",
+				"lampe 1 an",
+				"lampe 1 anschalten",
+				"schalte lampe 5 an",
+				"lampe 5 an",
+				"lampe 4 anschalten",
+				"schalte lampe 7 an",
+				"lampe 6 an",
+				"lampe 7 anschalten",
+				"schalte lampe 3 an",
+				"lampe 3 an",
+				"lampe 3 anschalten",
+				"schalte lampe 4 an",
+				"lampe 8 an",
+				"lampe 6 anschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "multilampon",
+			"patterns": [
+				"schalte lampe 1 und 2 an",
+				"lampe 1 und 6 an",
+				"lampe 1 und 2 anschalten",
+				"schalte lampe 3 und 4 an",
+				"lampe 3 und 5 an",
+				"lampe 3 und 4 anschalten",
+				"schalte lampe 5 und 7 an",
+				"lampe 5 und 6 an",
+				"lampe 7 und 8 anschalten",
+				"schalte lampe 5 und 7 und an",
+				"lampe 1 und 4 und 7 an",
+				"lampe 3 und 6 und 2 anschalten",
+				"schalte lampe 1 und 3 und 5 an",
+				"lampe 1 und 4 und 5 an",
+				"lampe 4 und 7 und 8 anschalten",
+				"schalte lampe 6 und 7 und 8 an",
+				"lampe 3 und 5 und 6 an",
+				"lampe 1 und 2 und 4 anschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "lampoff",
+			"patterns": [
+				"schalte lampe 1 aus",
+				"lampe 1 aus",
+				"lampe 1 ausschalten",
+				"schalte lampe 5 aus",
+				"lampe 5 aus",
+				"lampe 4 ausschalten",
+				"schalte lampe 7 aus",
+				"lampe 6 aus",
+				"lampe 7 ausschalten",
+				"schalte lampe 3 aus",
+				"lampe 3 aus",
+				"lampe 3 ausschalten",
+				"schalte lampe 4 aus",
+				"lampe 8 aus",
+				"lampe 6 ausschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "multilampoff",
+			"patterns": [
+				"schalte lampe 1 und 2 aus",
+				"lampe 1 und 6 aus",
+				"lampe 1 und 2 ausschalten",
+				"schalte lampe 3 und 4 aus",
+				"lampe 3 und 5 aus",
+				"lampe 3 und 4 ausschalten",
+				"schalte lampe 5 und 7 aus",
+				"lampe 5 und 6 aus",
+				"lampe 7 und 8 ausschalten",
+				"schalte lampe 5 und 7 und aus",
+				"lampe 1 und 4 und 7 aus",
+				"lampe 3 und 6 und 2 ausschalten",
+				"schalte lampe 1 und 3 und 5 aus",
+				"lampe 1 und 4 und 5 aus",
+				"lampe 4 und 7 und 8 ausschalten",
+				"schalte lampe 6 und 7 und 8 aus",
+				"lampe 3 und 5 und 6 aus",
+				"lampe 1 und 2 und 4 ausschalten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "playlistplay",
+			"patterns": [
+				"spiele meine playlist",
+				"meine playlist",
+				"starte meine playlist",
+				"spiele die playlist"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "play",
+			"patterns": [
+				"play",
+				"wiedergabe starten",
+				"starte die wiedergabe",
+				"fortsetzen"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "pause",
+			"patterns": [
+				"pause",
+				"wiedergabe pausieren",
+				"pausiere die wiedergabe",
+				"pausieren"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "randomon",
+			"patterns": [
+				"spiele zufällig",
+				"zufall an"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "randomoff",
+			"patterns": [
+				"spiele nicht zufällig",
+				"spiele geordnet",
+				"zufall aus"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "random",
+			"patterns": [
+				"zufallsmodus",
+				"zufall"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "setvolume",
+			"patterns": [
+				"lautstärke auf",
+				"lautstärke auf prozent",
+				"setze die lautstärke",
+				"setze die lautstärke auf"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "volumeup",
+			"patterns": [
+				"lauter",
+				"mach lauter",
+				"erhöhe die lautstärke"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "volumedown",
+			"patterns": [
+				"leiser",
+				"mach leiser",
+				"reduziere die lautstärke"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "songlike",
+			"patterns": [
+				"ich mag diesen song",
+				"ich mag dieses lied",
+				"lied speichern",
+				"song speichern"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "songdislike",
+			"patterns": [
+				"ich mag diesen song nicht",
+				"ich mag dieses lied nicht",
+				"lied löschen",
+				"song löschen",
+				"lied entfernen",
+				"song entfernen"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "songplay",
+			"patterns": [
+				"spiele das lied",
+				"spiele den song"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "showplay",
+			"patterns": [
+				"spiele den podcast",
+				"podcast starten"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "trackskip",
+			"patterns": [
+				"nächster song",
+				"nächstes lied",
+				"weiter",
+				"skip"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "trackback",
+			"patterns": [
+				"letzter song",
+				"letztes lied",
+				"zurück"
+			],
+			"context_set": ""
+		}
+	]
+}
