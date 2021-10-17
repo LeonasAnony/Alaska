@@ -4,8 +4,6 @@
 			"tag": "greeting",
 			"patterns": [
 				"Hi",
-				"Wie gehts dir?",
-				"Bist du an?",
 				"Hallo",
 				"Guten Tag/ Morgen",
 				"Hey"

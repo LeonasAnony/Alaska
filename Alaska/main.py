@@ -11,6 +11,7 @@
 #   Documenting the code
 #   Optimizing performance
 
+import sys
 import threading
 import time
 
@@ -31,7 +32,7 @@ class AlaskaThreads(threading.Thread):
 class Alaska():
     def __init__(self, mapping, input_mode):
         self.sh = Sound()
-        self.assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=mapping.get_mappings(), model_name="German-1.0.0")
+        self.assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=mapping.get_mappings(), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
         self.assistant.load_model()
         self.said = 0
         self.threads_start(input_mode)
@@ -49,8 +50,11 @@ class Alaska():
                 self.said = 0
 
         elif self.said == 1:
-            self.assistant.request(record)
-            self.said = 0
+            if record == "exit":
+                sys.exit()
+            else:
+                self.assistant.request(record)
+                self.said = 0
 
 
     def wakeword_loop(self):
@@ -61,7 +65,10 @@ class Alaska():
     def terminal_loop(self):
         while True:
             command = input("Input Command: ")
-            self.assistant.request(command)
+            if command == "exit":
+                sys.exit()
+            else:
+                self.assistant.request(command)
             
     
     def threads_start(self, terminal):

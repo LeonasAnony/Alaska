@@ -8,6 +8,7 @@ try:
     from Alaska.lib.Neural.neuralintents import GenericAssistant
     from Alaska.lib.Neural.mappings import Mappings
     from Alaska import main
+    from Alaska import config as cfg
 except:
     pass
 
@@ -40,13 +41,13 @@ class StartUp():
                     else:
                         pass
                     
-        self.mapping = Mappings()
+        self.mapping = Mappings(self.options.disablemqtt)
 
-        if not os.path.exists("Alaska/lib/Neural/German-1.0.0"):
-            os.mkdirs("Alaska/lib/Neural/German-1.0.0")
-            self.retrainmodel()
+        if not os.path.exists(f"Alaska/lib/Neural/{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}"):
+            os.mkdir(f"Alaska/lib/Neural/{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
+            self.retrain_model()
         elif self.options.retrainmodel:
-            self.retrainmodel()
+            self.retrain_model()
             
         main.Alaska(self.mapping, self.options.terminalmode)
         
@@ -69,16 +70,16 @@ class StartUp():
                           default=False,
                           dest="terminalmode",
                           help='Boolean. If set to "True", input will be taken from terminal rather than Mic.')
-        parser.add_option('-o', '--offlinemode',
+        parser.add_option('-m', '--disablemqtt',
                           action="store_true",
                           default=False,
-                          dest="offlinemode",
-                          help='Boolean. If set to "True", Alaska will be executed with all online modules disabled.')
+                          dest="disablemqtt",
+                          help='Boolean. If set to "True", MQTT will not be used.')
         self.options, args = parser.parse_args()
         
         
     def retrain_model(self):
-        assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=self.mapping.get_mappings(), model_name="German-1.0.0")
+        assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=self.mapping.get_mappings(True), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
         assistant.train_model()
         assistant.save_model()
         

@@ -10,16 +10,17 @@ from Alaska import lib
 
 
 class Commands():
-    def __init__(self):
+    def __init__(self, disablemqtt):
         self.sh = lib.modules.Sound()
-        self.mqtt = lib.modules.MQTT()
         wikipedia.set_lang("de")
         self.sp = lib.modules.Spotify()
+        if not disablemqtt:
+            self.mqtt = lib.modules.MQTT()
         print("Commands started")
         
         
-    def greeting(self):
-        self.sh.speak("Es geht mir gut. Danke.")
+    def greeting(self, response):
+        self.sh.speak(str(response))
 
 
     def howlate(self):

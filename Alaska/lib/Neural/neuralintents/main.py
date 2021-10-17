@@ -196,6 +196,8 @@ class GenericAssistant(IAssistant):
                     break
         except IndexError:
             result = "I don't understand!"
+        except KeyError:
+            return False
         return result
 
     def request_tag(self, message):
@@ -211,6 +213,9 @@ class GenericAssistant(IAssistant):
         ints = self._predict_class(message)
 
         if ints[0]['intent'] in self.intent_methods.keys():
-            self.intent_methods[ints[0]['intent']]()
+            if not self._get_response(ints, self.intents):
+                self.intent_methods[ints[0]['intent']]()
+            else:
+                self.intent_methods[ints[0]['intent']](ran_response)
         else:
             return self._get_response(ints, self.intents)
