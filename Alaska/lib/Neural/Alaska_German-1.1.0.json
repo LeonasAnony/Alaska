@@ -282,7 +282,7 @@
 			"patterns": [
 				"lautstärke auf",
 				"lautstärke auf prozent",
-				"setze die lautstärke",
+				"stelle die lautstärke auf",
 				"setze die lautstärke auf"
 			],
 			"context_set": ""
@@ -339,6 +339,7 @@
 			"tag": "showplay",
 			"patterns": [
 				"spiele den podcast",
+				"starte den podcast",
 				"podcast starten"
 			],
 			"context_set": ""

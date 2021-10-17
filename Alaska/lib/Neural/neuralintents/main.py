@@ -213,9 +213,10 @@ class GenericAssistant(IAssistant):
         ints = self._predict_class(message)
 
         if ints[0]['intent'] in self.intent_methods.keys():
-            if not self._get_response(ints, self.intents):
-                self.intent_methods[ints[0]['intent']]()
+            ran_response = self._get_response(ints, self.intents)
+            if not ran_response:
+                self.intent_methods[ints[0]['intent']](message)
             else:
-                self.intent_methods[ints[0]['intent']](ran_response)
+                self.intent_methods[ints[0]['intent']](message, ran_response)
         else:
             return self._get_response(ints, self.intents)
