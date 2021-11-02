@@ -104,6 +104,15 @@
 			"context_set": ""
 		},
 		{
+			"tag": "timezone",
+			"patterns": [
+				"wie spät ist es in",
+				"uhrzeit in",
+				"wie viel uhr in"
+			],
+			"context_set": ""
+		},
+		{
 			"tag": "calc",
 			"patterns": [
 				"wie viel ist",

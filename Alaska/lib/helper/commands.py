@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 import time
 import pyjokes
 import pytz
@@ -24,6 +25,9 @@ class Commands:
 
 
     def howlate(self, msg):
+        if "in" in msg:
+            self.timezone(msg)
+            return
         hour = time.strftime("%H", time.localtime())
         minute = time.strftime("%M", time.localtime())
         if hour[0] == "0":
@@ -115,7 +119,30 @@ class Commands:
         
         
     def timezone(self, msg):
-
+        times = []
+        msg_split = msg.split(" ")
+        if "in" in msg:
+            pos = msg_split.index("in")
+            country = msg_split[pos+1]
+        else:
+            print("KeyWord 'in' not said...")
+            return
+        
+        info = lib.modules.CountryInfo(str(country))
+        timezones = info.timezones()
+        if "ERROR" in timezones:
+            self.sh.speak(f"Das Land: {country} wurde nicht in der Datenbank gefunden.")
+            return
+        for offset in info.timezones():
+            hours = offset[4:6]
+            minutes = offset[7:9]
+            if hours[0] == "0":
+                hours = hours.replace("0", "", 1)
+            if offset[3] == "+":
+                times.append(datetime.now(timezone.utc) + timedelta(hours=int(hours), minutes=int(minutes)))
+            elif offset[3] == "−":
+                times.append(datetime.now(timezone.utc) - timedelta(hours=int(hours), minutes=int(minutes)))
+        self.sh.speak(f"In {country} ist es {times[0].strftime('%H')} Uhr und {times[0].strftime('%M')} Minuten.")
 
 
     def calc(self, msg): # ISSUE: not working after rebuild (v0.2.0)
