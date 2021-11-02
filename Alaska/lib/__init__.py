@@ -1,4 +1,4 @@
-from .helper import commands
+from .helper.commands import Commands
 from . import modules
-from .Neural import mappings
-from .Neural import neuralintents
+from .Neural.mappings import Mappings
+from .Neural.neuralintents import GenericAssistant

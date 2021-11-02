@@ -5,8 +5,7 @@ import os
 import time
 
 try:
-    from Alaska.lib.Neural.neuralintents import GenericAssistant
-    from Alaska.lib.Neural.mappings import Mappings
+    from Alaska import lib
     from Alaska import main
     from Alaska import config as cfg
 except:
@@ -14,7 +13,7 @@ except:
 
 
 
-class StartUp():
+class StartUp:
     def __init__(self):
         self.ArgParser()
             
@@ -41,7 +40,7 @@ class StartUp():
                     else:
                         pass
                     
-        self.mapping = Mappings(self.options.disablemqtt)
+        self.mapping = lib.Mappings(self.options.disablemqtt)
 
         if not os.path.exists(f"Alaska/lib/Neural/{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}"):
             os.mkdir(f"Alaska/lib/Neural/{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
@@ -79,7 +78,7 @@ class StartUp():
         
         
     def retrain_model(self):
-        assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=self.mapping.get_mappings(True), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
+        assistant = lib.GenericAssistant(f"Alaska/lib/Neural/Alaska_{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}.json", intent_methods=self.mapping.get_mappings(True), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
         assistant.train_model()
         assistant.save_model()
         

@@ -9,7 +9,7 @@ from Alaska import lib
 
 
 
-class Commands():
+class Commands:
     def __init__(self, disablemqtt):
         self.sh = lib.modules.Sound()
         wikipedia.set_lang("de")

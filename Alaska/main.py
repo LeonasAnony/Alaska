@@ -16,8 +16,8 @@ import threading
 import time
 
 from Alaska import config as cfg
-from Alaska.lib.Neural.neuralintents import GenericAssistant
-from Alaska.lib.modules.sound import Sound
+from Alaska.lib import GenericAssistant
+from Alaska.lib.modules import Sound
 
 
 
@@ -29,10 +29,10 @@ class AlaskaThreads(threading.Thread):
 
 
 
-class Alaska():
+class Alaska:
     def __init__(self, mapping, input_mode):
         self.sh = Sound()
-        self.assistant = GenericAssistant('Alaska/lib/Neural/Alaska_German-1.0.0.json', intent_methods=mapping.get_mappings(), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
+        self.assistant = GenericAssistant(f"Alaska/lib/Neural/Alaska_{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}.json", intent_methods=mapping.get_mappings(), model_name=f"{cfg.neural_cfg['assistant_lang']}-{cfg.neural_cfg['assistant_version']}")
         self.assistant.load_model()
         self.said = 0
         self.threads_start(input_mode)

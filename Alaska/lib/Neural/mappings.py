@@ -1,8 +1,8 @@
-from Alaska.lib.helper.commands import Commands
+from Alaska.lib import Commands
 
 
 
-class Mappings():
+class Mappings:
     def __init__(self, disablemqtt):
         self.disablemqtt = disablemqtt
         self.commands = Commands(self.disablemqtt)
