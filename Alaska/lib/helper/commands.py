@@ -85,11 +85,21 @@ class Commands:
             except wikipedia.DisambiguationError:
                 self.sh.speak("Bitte grenze deine Suche ein.")
 
+
+    def capitalof(self, msg):
+        msg_split = msg.split(" ")
+        if "von" in msg:
+            pos = msg_split.index("von")
+            country = msg_split[pos+1]
         else:
-            self.sh.speak("Bitte nenne wonach ich suchen soll, nach dem Wort Wikipedia.")
-
-
-#	def capitalof(self, msg):
+            print("KeyWord 'von' not said...")
+            return
+        
+        info = lib.modules.CountryInfo(str(country))
+        self.sh.speak(info.capital())
+        
+        
+    def timezone(self, msg):
 
 
 
