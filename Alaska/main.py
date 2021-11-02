@@ -14,6 +14,7 @@
 import sys
 import threading
 import time
+import os
 
 from Alaska import config as cfg
 from Alaska.lib import GenericAssistant
@@ -67,6 +68,10 @@ class Alaska:
             command = input("Input Command: ")
             if command == "exit":
                 sys.exit()
+            if command == "restart":
+                print("Restarting...")
+                # os.execv(sys.argv[0], sys.argv)     # ISSUE: Not working tue to permission error
+                os.execv(sys.executable, ['python3.9'] + sys.argv) # Working but not happy with it. Too inconsistent.
             else:
                 self.assistant.request(command)
             
