@@ -72,12 +72,27 @@ class Commands:
 
     def definition(self, msg):
         self.sh.speak("Durchsuche Wikipedia...")
-        search = self.audio.replace("wikipedia ", "")
+        msg_split = msg.split(" ")
+        if "definiere" in msg:
+            pos = msg_split.index("definiere")
+            search = msg_split[pos+1:]
+        elif "von" in msg:
+            pos = msg_split.index("von")
+            search = msg_split[pos+1:]
+        else:
+            print("KeyWord 'definiere'/'von' not said...")
+            return
         if search:
             try:
-                results = wikipedia.summary(search, sentences=2)
+                results = wikipedia.summary(search, sentences=1)
                 time.sleep(1)
-                self.sh.speak(results)
+                open_brack = results.index("(")
+                close_brack = results.index(")")
+                if len(results) > close_brack :
+                    cutdef = results[0: open_brack - 1] + results[close_brack + 1:]
+                else:
+                    cutdef = results[0: open_brack - 1]
+                self.sh.speak(cutdef)
 
             except wikipedia.PageError:
                 self.sh.speak("Die Suche ergab kein Ergebnis.")
