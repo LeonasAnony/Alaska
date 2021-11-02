@@ -103,7 +103,7 @@ class Commands:
 
 
 
-    def calc(self, msg):
+    def calc(self, msg): # ISSUE: not working after rebuild (v0.2.0)
         self.sh.speak("Stelle eine Frage:")
         time.sleep(1)
         question = self.sh.record_audio()
