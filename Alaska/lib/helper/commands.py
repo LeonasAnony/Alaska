@@ -3,7 +3,6 @@ import time
 import pyjokes
 import pytz
 import wikipedia
-import wolframalpha
 
 from Alaska import config as cfg
 from Alaska import lib
@@ -146,17 +145,79 @@ class Commands:
 
 
     def calc(self, msg): # ISSUE: not working after rebuild (v0.2.0)
-        self.sh.speak("Stelle eine Frage:")
-        time.sleep(1)
-        question = self.sh.record_audio()
-        wa_client = wolframalpha.Client(cfg.wa_cfg["app_id"])
-        res = wa_client.query(question)
-        try:
-            answer = next(res.results).text
-            self.sh.speak(answer)
-
-        except StopIteration:
-            self.sh.speak("Keine Ergebnisse")
+        msg_split = []
+        for e in msg.split():
+            if e.isalpha():
+                msg_split.append(str(e))
+            elif e.isdigit():
+                msg_split.append(int(e))
+            else:
+                msg_split.append(e)
+        if "rechne" in msg:
+            del msg_split[0]
+        elif "ergibt" in msg:
+            del msg_split[0:msg_split.index("ergibt") + 1]
+        elif "ist" in msg:
+            del msg_split[0:msg_split.index("ist") + 1]
+        print(msg_split)
+        while(any(isinstance(e, str) for e in msg_split)):
+            if "hoch" in msg_split or "^" in msg_split:
+                if "hoch" in msg_split:
+                    i = msg_split.index("hoch")
+                if "^" in msg_split:
+                    i = msg_split.index("^")
+                pre = msg_split[i - 1]
+                post = msg_split[i + 1]
+                res = pre ** post
+                msg_split[i - 1] = int(res)
+                msg_split.pop(i)
+                msg_split.pop(i)
+            elif "mal" in msg_split or "*" in msg_split:
+                if "mal" in msg_split:
+                    i = msg_split.index("mal")
+                if "*" in msg_split:
+                    i = msg_split.index("*")
+                pre = msg_split[i - 1]
+                post = msg_split[i + 1]
+                res = pre * post
+                msg_split[i - 1] = int(res)
+                msg_split.pop(i)
+                msg_split.pop(i)
+            elif "durch" in msg_split or "/" in msg_split:
+                if "durch" in msg_split:
+                    i = msg_split.index("durch")
+                if "/" in msg_split:
+                    i = msg_split.index("/")
+                pre = msg_split[i - 1]
+                post = msg_split[i + 1]
+                res = pre / post
+                msg_split[i - 1] = int(res)
+                msg_split.pop(i)
+                msg_split.pop(i)
+            elif "plus" in msg_split or "+" in msg_split:
+                if "plus" in msg_split:
+                    i = msg_split.index("plus")
+                if "+" in msg_split:
+                    i = msg_split.index("+")
+                pre = msg_split[i - 1]
+                post = msg_split[i + 1]
+                res = pre + post
+                msg_split[i - 1] = int(res)
+                msg_split.pop(i)
+                msg_split.pop(i)
+            elif "minus" in msg_split or "-" in msg_split:
+                if "minus" in msg_split:
+                    i = msg_split.index("minus")
+                if "-" in msg_split:
+                    i = msg_split.index("-")
+                pre = msg_split[i - 1]
+                post = msg_split[i + 1]
+                res = pre - post
+                msg_split[i - 1] = int(res)
+                msg_split.pop(i)
+                msg_split.pop(i)
+        result = str(msg_split[0])
+        self.sh.speak(result)
 
 
     def lighton(self, msg):
